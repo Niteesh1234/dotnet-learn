@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Insurance Analytics Platform</title>
+    <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+    <div class="app-shell">
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">Insurance Analytics</p>
+                <h1>Operations Dashboard</h1>
+                <p class="muted">Step 1: frontend shell, login flow, filters, and KPI dashboard.</p>
+            </div>
+            <div id="sessionInfo" class="session-info hidden">
+                <span id="sessionRole" class="badge"></span>
+                <span id="sessionExpiry" class="muted"></span>
+                <button id="logoutButton" class="secondary" type="button">Logout</button>
+            </div>
+        </header>
+
+        <main>
+            <div id="message" class="message hidden"></div>
+
+            <section id="loginSection" class="panel auth-panel">
+                <div>
+                    <p class="section-label">Recommended next step</p>
+                    <h2>Sign in to continue</h2>
+                </div>
+                <form id="loginForm">
+                    <label>
+                        <span>Username</span>
+                        <input id="username" required />
+                    </label>
+                    <label>
+                        <span>Password</span>
+                        <input id="password" type="password" required />
+                    </label>
+                    <button type="submit">Sign in</button>
+                    <p class="muted">Admin: admin / Admin@123 · User: user / User@123</p>
+                </form>
+            </section>
+
+            <section id="appSection" class="hidden">
+                <nav class="panel tab-nav">
+                    <button id="dashboardTab" class="tab-button active" type="button">Dashboard</button>
+                    <button id="policiesTab" class="tab-button secondary" type="button">Policies</button>
+                    <button id="claimsTab" class="tab-button secondary" type="button">Claims</button>
+                </nav>
+
+                <section id="dashboardSection" class="view-section">
+                    <section class="panel">
+                        <div class="section-header">
+                            <div>
+                                <p class="section-label">Dashboard filters</p>
+                                <h2>Analytics overview</h2>
+                            </div>
+                            <button id="refreshButton" class="secondary" type="button">Refresh dashboard</button>
+                        </div>
+
+                        <form id="filtersForm" class="filters-grid">
+                            <label>
+                                <span>From date</span>
+                                <input type="date" id="fromDate" />
+                            </label>
+                            <label>
+                                <span>To date</span>
+                                <input type="date" id="toDate" />
+                            </label>
+                            <label>
+                                <span>Region</span>
+                                <select id="regionFilter">
+                                    <option value="">All regions</option>
+                                </select>
+                            </label>
+                            <label>
+                                <span>Policy type</span>
+                                <select id="policyTypeFilter">
+                                    <option value="">All policy types</option>
+                                </select>
+                            </label>
+                            <button type="submit">Apply filters</button>
+                        </form>
+
+                        <div id="kpiCards" class="kpi-grid"></div>
+                    </section>
+
+                    <div class="two-column">
+                        <section class="panel">
+                            <div class="section-header compact">
+                                <div>
+                                    <p class="section-label">Trend data</p>
+                                    <h2>Monthly premium vs claims</h2>
+                                </div>
+                            </div>
+                            <div class="table-wrap">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Month</th>
+                                            <th>Premium</th>
+                                            <th>Claims</th>
+                                            <th>Loss ratio</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="monthlyTrendBody"></tbody>
+                                </table>
+                            </div>
+                        </section>
+
+                        <section class="panel">
+                            <div class="section-header compact">
+                                <div>
+                                    <p class="section-label">Regional view</p>
+                                    <h2>Region breakdown</h2>
+                                </div>
+                            </div>
+                            <div class="table-wrap">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Region</th>
+                                            <th>Premium</th>
+                                            <th>Claims</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="regionBreakdownBody"></tbody>
+                                </table>
+                            </div>
+                        </section>
+                    </div>
+
+                    <section class="panel">
+                        <div class="section-header compact">
+                            <div>
+                                <p class="section-label">Visual</p>
+                                <h2>Monthly premium vs claims (pie)</h2>
+                            </div>
+                        </div>
+                        <div id="pieChart" class="pie-chart"></div>
+                    </section>
+                </section>
+
+                <section id="policiesSection" class="view-section hidden">
+                    <section class="panel">
+                        <div class="section-header">
+                            <div>
+                                <p class="section-label">Policy management</p>
+                                <h2>Policies</h2>
+                            </div>
+                            <button id="reloadPoliciesButton" class="secondary" type="button">Reload policies</button>
+                        </div>
+
+                        <form id="policyForm" class="form-grid admin-only hidden">
+                            <label>
+                                <span>Customer name</span>
+                                <input id="policyCustomerName" required />
+                            </label>
+                            <label>
+                                <span>Policy type</span>
+                                <select id="policyTypeInput" required></select>
+                            </label>
+                            <label>
+                                <span>Premium amount</span>
+                                <input id="policyPremiumAmount" type="number" min="0" step="0.01" required />
+                            </label>
+                            <label>
+                                <span>Start date</span>
+                                <input id="policyStartDate" type="date" required />
+                            </label>
+                            <label>
+                                <span>End date</span>
+                                <input id="policyEndDate" type="date" required />
+                            </label>
+                            <label>
+                                <span>Region</span>
+                                <input id="policyRegion" required />
+                            </label>
+                            <button type="submit">Create policy</button>
+                        </form>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Customer</th>
+                                        <th>Type</th>
+                                        <th>Premium</th>
+                                        <th>Start</th>
+                                        <th>End</th>
+                                        <th>Region</th>
+                                        <th>Claims</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="policiesBody"></tbody>
+                            </table>
+                        </div>
+                    </section>
+                </section>
+
+                <section id="claimsSection" class="view-section hidden">
+                    <section class="panel">
+                        <div class="section-header">
+                            <div>
+                                <p class="section-label">Claim management</p>
+                                <h2>Claims</h2>
+                            </div>
+                            <button id="reloadClaimsButton" class="secondary" type="button">Reload claims</button>
+                        </div>
+
+                        <form id="claimForm" class="form-grid admin-only hidden">
+                            <label>
+                                <span>Policy</span>
+                                <select id="claimPolicyId" required></select>
+                            </label>
+                            <label>
+                                <span>Claim amount</span>
+                                <input id="claimAmount" type="number" min="0" step="0.01" required />
+                            </label>
+                            <label>
+                                <span>Claim date</span>
+                                <input id="claimDate" type="date" required />
+                            </label>
+                            <label>
+                                <span>Status</span>
+                                <select id="claimStatus" required></select>
+                            </label>
+                            <button type="submit">Create claim</button>
+                        </form>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Policy ID</th>
+                                        <th>Customer</th>
+                                        <th>Amount</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="claimsBody"></tbody>
+                            </table>
+                        </div>
+                    </section>
+                </section>
+            </section>
+        </main>
+    </div>
+
+    <script src="/app.js"></script>
+</body>
+</html>

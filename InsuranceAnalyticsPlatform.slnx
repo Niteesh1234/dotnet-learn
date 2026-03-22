@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/backend/" />
+  <Folder Name="/backend/src/">
+    <Project Path="backend/src/InsuranceAnalytics.Api/InsuranceAnalytics.Api.csproj" />
+    <Project Path="backend/src/InsuranceAnalytics.Core/InsuranceAnalytics.Core.csproj" />
+    <Project Path="backend/src/InsuranceAnalytics.Infrastructure/InsuranceAnalytics.Infrastructure.csproj" />
+  </Folder>
+</Solution>
