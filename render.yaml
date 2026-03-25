@@ -1,0 +1,33 @@
+services:
+  - name: ia-dev
+    type: web
+    env: docker
+    plan: free
+    buildCommand: "dotnet publish backend/src/InsuranceAnalytics.Api/InsuranceAnalytics.Api.csproj -c Release -o publish"
+    startCommand: "cd publish && dotnet InsuranceAnalytics.Api.dll"
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Development
+    autoDeploy: true
+
+  - name: ia-prod
+    type: web
+    env: docker
+    plan: free
+    buildCommand: "dotnet publish backend/src/InsuranceAnalytics.Api/InsuranceAnalytics.Api.csproj -c Release -o publish"
+    startCommand: "cd publish && dotnet InsuranceAnalytics.Api.dll"
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+    autoDeploy: true
+
+  - name: ia-uat
+    type: web
+    env: docker
+    plan: free
+    buildCommand: "dotnet publish backend/src/InsuranceAnalytics.Api/InsuranceAnalytics.Api.csproj -c Release -o publish"
+    startCommand: "cd publish && dotnet InsuranceAnalytics.Api.dll"
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Uat
+    autoDeploy: true
