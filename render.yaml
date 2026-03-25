@@ -3,8 +3,7 @@ services:
     type: web
     env: docker
     plan: free
-    buildCommand: "dotnet publish backend/src/InsuranceAnalytics.Api/InsuranceAnalytics.Api.csproj -c Release -o publish"
-    startCommand: "cd publish && dotnet InsuranceAnalytics.Api.dll"
+    dockerfilePath: backend/src/InsuranceAnalytics.Api/Dockerfile
     envVars:
       - key: ASPNETCORE_ENVIRONMENT
         value: Development
@@ -14,8 +13,7 @@ services:
     type: web
     env: docker
     plan: free
-    buildCommand: "dotnet publish backend/src/InsuranceAnalytics.Api/InsuranceAnalytics.Api.csproj -c Release -o publish"
-    startCommand: "cd publish && dotnet InsuranceAnalytics.Api.dll"
+    dockerfilePath: backend/src/InsuranceAnalytics.Api/Dockerfile
     envVars:
       - key: ASPNETCORE_ENVIRONMENT
         value: Production
@@ -25,8 +23,7 @@ services:
     type: web
     env: docker
     plan: free
-    buildCommand: "dotnet publish backend/src/InsuranceAnalytics.Api/InsuranceAnalytics.Api.csproj -c Release -o publish"
-    startCommand: "cd publish && dotnet InsuranceAnalytics.Api.dll"
+    dockerfilePath: backend/src/InsuranceAnalytics.Api/Dockerfile
     envVars:
       - key: ASPNETCORE_ENVIRONMENT
         value: Uat
